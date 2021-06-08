@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://sleepy-mountain-06375.herokuapp.com'
+const API_ENDPOINT = 'https://sleepy-mountain-06375.herokuapp.com'
 const notes_url = `${API_ENDPOINT}/api/notes`
 
 function App() {
