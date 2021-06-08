@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
 
 function App() {
+  let [notes, setNotes] = useState([])
+
+  useEffect(() => {
+    fetch('https://sleepy-mountain-06375.herokuapp.com/api/notes')
+      .then(response => response.json())
+      .then(data => setNotes(data))
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {notes.map((note) => {
+        return <p key={note.id}>{note.content}</p>
+      })}
     </div>
   );
 }
