@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import './app.css'
+
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://sleepy-mountain-06375.herokuapp.com'
 const WS_URL = process.env.REACT_APP_WS_URL || 'wss://sleepy-mountain-06375.herokuapp.com'
@@ -32,7 +34,7 @@ function App() {
   useEffect(() => {
     fetch(notes_url)
       .then(response => response.json())
-      .then(data => setNotes(data))
+      .then(data => setNotes(data.reverse()))
   }, [num])
 
   const handleSubmit = (event) => {
@@ -61,7 +63,7 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
+      <form className="note-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Type your note here"
@@ -70,13 +72,22 @@ function App() {
         />
         {error ? <p>{error}</p> : null}
 
-        <button type="submit" disabled={content.length === 0} >Add note</button>
+        <button className="submit-button" type="submit" disabled={content.length === 0} >Add note</button>
       </form>
-      <h2>Notes</h2>
-      {notes.map((note) => {
-        return <p key={note.id}>{note.content}</p>
-      })}
-    </div>
+      <div className="notes">
+        <h2>Notes</h2>
+        {notes.map((note) => {
+          const date = new Date(note.date)
+          const dateString = date.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })
+          return (
+            <>
+              <p className="note" key={note.id}>
+                <span className="date">{dateString} - </span>{note.content}
+              </p>
+            </>)
+        })}
+      </div>
+    </div >
   );
 }
 
