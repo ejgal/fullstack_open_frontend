@@ -6,18 +6,19 @@ const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://sleepy-mount
 const WS_URL = process.env.REACT_APP_WS_URL || 'wss://sleepy-mountain-06375.herokuapp.com'
 const notes_url = `${API_ENDPOINT}/api/notes`
 
-const socket = new WebSocket(WS_URL)
 
 function App() {
   let [notes, setNotes] = useState([])
   let [content, setContent] = useState("")
   let [error, setError] = useState(null)
   let [num, setNum] = useState(0)
+  let [socket, setSocket] = useState(new WebSocket(WS_URL))
+
 
   useEffect(() => {
     console.log("Trying to open socket")
     socket.onopen = () => {
-      console.log('Connected')
+      console.log('Connection opened')
     }
     socket.onmessage = (e) => {
       console.log("Server message: ", e.data)
@@ -25,11 +26,15 @@ function App() {
         setNum(n => n + 1)
       }
     }
+    socket.onclose = () => {
+      console.log("Connection closed")
+      setSocket(new WebSocket(WS_URL))
+    }
 
     return () => {
       socket.close()
     }
-  }, [])
+  }, [socket])
 
   useEffect(() => {
     fetch(notes_url)
