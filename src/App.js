@@ -1,18 +1,39 @@
 import { useState, useEffect } from 'react'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://sleepy-mountain-06375.herokuapp.com'
+const WS_URL = process.env.REACT_APP_WS_URL || 'ws://sleepy-mountain-06375.herokuapp.com'
 const notes_url = `${API_ENDPOINT}/api/notes`
+
+const socket = new WebSocket(WS_URL)
 
 function App() {
   let [notes, setNotes] = useState([])
   let [content, setContent] = useState("")
   let [error, setError] = useState(null)
+  let [num, setNum] = useState(0)
+
+  useEffect(() => {
+    console.log("Trying to open socket")
+    socket.onopen = () => {
+      console.log('Connected')
+    }
+    socket.onmessage = (e) => {
+      console.log("Server message: ", e.data)
+      if (e.data === "fetch") {
+        setNum(n => n + 1)
+      }
+    }
+
+    return () => {
+      socket.close()
+    }
+  }, [])
 
   useEffect(() => {
     fetch(notes_url)
       .then(response => response.json())
       .then(data => setNotes(data))
-  }, [])
+  }, [num])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -29,7 +50,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data)
-        setNotes(notes.concat(data))
+        // setNotes(notes.concat(data))
         setContent('')
       })
       .catch((error) => {
