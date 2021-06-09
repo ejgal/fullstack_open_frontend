@@ -1,59 +1,64 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  background-color: rgba(167, 243, 208, 1);
+  box-sizing: border-box;
 }
 
 .App {
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
+  background-color: rgba(167, 243, 208, 1);
+  padding-top: 20px;
+}
+
+h1 {
+  margin-bottom: 15px;
 }
 
 .note-form {
   max-width: 500px;
   margin: 0 auto;
-  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 0 40px;
 }
 
 .note-form input {
   border: none;
   padding: 10px;
   border-radius: 4px;
-  color: white;
   background-color: rgba(16, 185, 129, 1);
   font-weight: 500;
   font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .submit-button {
-  color: white;
   font-weight: bold;
   padding: 10px;
-  margin-left: 20px;
   background-color: rgba(16, 185, 129, 1);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  color: #000;
 }
 
 .notes {
-  max-width: 650px;
+  max-width: 500px;
   margin: 0 auto;
   background-color: rgba(16, 185, 129, 1);
-  color: white;
   border-radius: 5px;
-  padding-top: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding-bottom: 15px;
-}
-
-.notes h2 {
-  text-align: center;
+  padding: 20px;
 }
 
 .note {
   max-width: 500px;
   margin: 0 auto;
+  text-align: left;
+  margin-bottom: 6px;
 }

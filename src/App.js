@@ -63,6 +63,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Realtime notes</h1>
       <form className="note-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -75,7 +76,6 @@ function App() {
         <button className="submit-button" type="submit" disabled={content.length === 0} >Add note</button>
       </form>
       <div className="notes">
-        <h2>Notes</h2>
         {notes.map((note) => {
           const date = new Date(note.date)
           const dateString = date.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })
