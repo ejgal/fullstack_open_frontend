@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'https://sleepy-mountain-06375.herokuapp.com'
-const WS_URL = process.env.REACT_APP_WS_URL || 'ws://sleepy-mountain-06375.herokuapp.com'
+const WS_URL = process.env.REACT_APP_WS_URL || 'wss://sleepy-mountain-06375.herokuapp.com'
 const notes_url = `${API_ENDPOINT}/api/notes`
 
 const socket = new WebSocket(WS_URL)
